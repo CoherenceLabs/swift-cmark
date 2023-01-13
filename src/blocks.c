@@ -334,8 +334,13 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
   {
     has_content = resolve_reference_link_definitions(parser, b);
     if (!has_content && (parser->options & CMARK_OPT_PRESERVE_WHITESPACE) == 0) {
-      // remove blank node (former reference def)
-      cmark_node_free(b);
+      if (parser->options & CMARK_OPT_PRESERVE_LINK_DEFINITIONS) {
+        // Preserve link-definition-only paragraphs as LINK_DEFINITION nodes, when requested.
+        b->type = CMARK_NODE_LINK_DEFINITION;
+      } else {
+        // remove blank node (former reference def)
+        cmark_node_free(b);
+      }
     }
     break;
   }
