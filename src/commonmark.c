@@ -459,6 +459,13 @@ static int S_render_node(cmark_renderer *renderer, cmark_node *node,
     }
     break;
 
+  case CMARK_NODE_LINK_DEFINITIONS:
+    // Treat same as CMARK_NODE_PARAGRAPH.
+    if (!entering) {
+      BLANKLINE();
+    }
+    break;
+
   case CMARK_NODE_IMAGE:
     if (entering) {
       LIT("![");

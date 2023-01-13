@@ -336,7 +336,7 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
     if (!has_content && (parser->options & CMARK_OPT_PRESERVE_WHITESPACE) == 0) {
       if (parser->options & CMARK_OPT_PRESERVE_LINK_DEFINITIONS) {
         // Preserve link-definition-only paragraphs as LINK_DEFINITION nodes, when requested.
-        b->type = CMARK_NODE_LINK_DEFINITION;
+        b->type = CMARK_NODE_LINK_DEFINITIONS;
       } else {
         // remove blank node (former reference def)
         cmark_node_free(b);

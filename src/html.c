@@ -383,6 +383,10 @@ static int S_render_node(cmark_html_renderer *renderer, cmark_node *node,
     }
     break;
 
+  case CMARK_NODE_LINK_DEFINITIONS:
+    // Emit no HTML for Markdown reference-link definitions.
+    break;
+
   case CMARK_NODE_IMAGE:
     if (entering) {
       cmark_strbuf_puts(html, "<img src=\"");

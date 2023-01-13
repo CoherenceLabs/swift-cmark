@@ -53,7 +53,7 @@ typedef enum {
   CMARK_NODE_HEADING        = CMARK_NODE_TYPE_BLOCK | 0x0009,
   CMARK_NODE_THEMATIC_BREAK = CMARK_NODE_TYPE_BLOCK | 0x000a,
   CMARK_NODE_FOOTNOTE_DEFINITION = CMARK_NODE_TYPE_BLOCK | 0x000b,
-  CMARK_NODE_LINK_DEFINITION = CMARK_NODE_TYPE_BLOCK | 0x000c,
+  CMARK_NODE_LINK_DEFINITIONS = CMARK_NODE_TYPE_BLOCK | 0x000c,
 
   /* Inline */
   CMARK_NODE_TEXT          = CMARK_NODE_TYPE_INLINE | 0x0001,
@@ -797,7 +797,7 @@ char *cmark_render_latex_with_mem(cmark_node *root, int options, int width, cmar
 #define CMARK_OPT_TABLE_ROWSPAN_DITTO (1 << 21)
 
 /** Suppress pruning of reference-link definitions from the node tree. They
- * will instead be converted to nodes of type CMARK_NODE_LINK_DEFINITION.
+ * will instead be converted to nodes of type CMARK_NODE_LINK_DEFINITIONS.
  */
 #define CMARK_OPT_PRESERVE_LINK_DEFINITIONS (1 << 22)
 

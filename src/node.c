@@ -36,6 +36,7 @@ bool cmark_node_can_contain_type(cmark_node *node, cmark_node_type child_type) {
   case CMARK_NODE_EMPH:
   case CMARK_NODE_STRONG:
   case CMARK_NODE_LINK:
+  case CMARK_NODE_LINK_DEFINITIONS:
   case CMARK_NODE_IMAGE:
   case CMARK_NODE_ATTRIBUTE:
   case CMARK_NODE_CUSTOM_INLINE:
@@ -258,6 +259,8 @@ const char *cmark_node_get_type_string(cmark_node *node) {
     return "strong";
   case CMARK_NODE_LINK:
     return "link";
+  case CMARK_NODE_LINK_DEFINITIONS:
+    return "link_definitions";
   case CMARK_NODE_IMAGE:
     return "image";
   case CMARK_NODE_ATTRIBUTE:
