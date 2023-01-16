@@ -292,8 +292,13 @@ static bool resolve_reference_link_definitions(
     chunk.data += pos;
     chunk.len -= pos;
   }
-  cmark_strbuf_drop(node_content, (node_content->size - chunk.len));
-  return !is_blank(&b->content, 0);
+  if (parser->options & CMARK_OPT_PRESERVE_LINK_DEFINITIONS) {
+    // Keep the node_content intact, and just return true if cmark_strbuf_drop() would have left it non-blank.
+    return !is_blank(&b->content, (node_content->size - chunk.len));
+  } else {
+    cmark_strbuf_drop(node_content, (node_content->size - chunk.len));
+    return !is_blank(&b->content, 0);
+  }
 }
 
 static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
@@ -337,6 +342,9 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
       if (parser->options & CMARK_OPT_PRESERVE_LINK_DEFINITIONS) {
         // Preserve link-definition-only paragraphs as LINK_DEFINITION nodes, when requested.
         b->type = CMARK_NODE_LINK_DEFINITIONS;
+        b->as.literal = cmark_chunk_buf_detach(node_content);
+//        const char *literal = cmark_node_get_literal(b);
+//        puts(literal);
       } else {
         // remove blank node (former reference def)
         cmark_node_free(b);
